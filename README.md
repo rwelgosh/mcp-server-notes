@@ -31,12 +31,9 @@ This will start the server on `http://0.0.0.0:8000`.
 
 The server exposes the following MCP commands:
 
-- `list_notes(user_id=None)` - Get all notes, optionally filtered by user_id
-- `get_note(note_id)` - Get a specific note by ID
-- `add_note(title, content, user_id=None, tags=None)` - Create a new note
-- `modify_note(note_id, title=None, content=None, tags=None)` - Update an existing note
-- `remove_note(note_id)` - Delete a note by ID
-- `search(query, user_id=None)` - Search notes by query string
+- `list_notes()` - Get all notes
+- `get_note(note_name)` - Get a specific note by name
+- `search(query, note_name=None)` - Search notes by query string
 
 ## Note Format
 
@@ -44,7 +41,7 @@ Notes are stored as JSON files in the specified directory with the following for
 
 ```json
 {
-    "category": {best_category},
+    "category": "category",
     "summary": "summary of the notes", 
     "tags": [
         {
@@ -80,15 +77,7 @@ client = MCPClient("http://localhost:8000")
 notes = client.call("notes.list_notes")
 
 # Get a specific note
-note = client.call("notes.get_note", note_id="your-note-id")
-
-# Create a new note
-new_note = client.call(
-    "notes.add_note", 
-    title="My New Note", 
-    content="This is the content of my note", 
-    tags=["important", "work"]
-)
+note = client.call("notes.get_note", note_name="your-note-name")
 
 # Search for notes
 search_results = client.call("notes.search", query="important")
